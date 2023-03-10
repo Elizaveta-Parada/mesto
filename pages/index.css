@@ -1,0 +1,16 @@
+/* шрифты и стили страницы */
+@import url(../vendor/normalize.css);
+@import url(../vendor/fonts/fonts.css);
+@import url(../blocks/page/page.css);
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__logo/header__logo.css);
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__avatar-image/profile__avatar-image.css);
+@import url(../blocks/profile/__info-subtitle/profile__info-subtitle.css);
+@import url(../blocks/profile/__info-title/profile__info-title.css);
+@import url(../blocks/profile/__info-editbutton/profile__info-editbutton.css);
+@import url(../blocks/profile/__info-editbutton/_image/profile__info-editbutton_image.css);
+@import url(../blocks/profile/__addbutton/profile__addbutton.css);
+@import url(../blocks/profile/__addbutton-image/profile__addbutton-image.css);
