@@ -1,0 +1,5 @@
+.footer {
+    width: calc(282px + (880 - 282)*((100vw - 320px)/(1280 - 320)));
+    margin: auto;
+    padding-top: calc(48px + (69 - 48)*((100vw - 320px)/(1280 - 320)));
+}

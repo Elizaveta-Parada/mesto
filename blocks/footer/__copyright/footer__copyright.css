@@ -1,14 +1,13 @@
-.profile__info-subtitle {
-    grid-area: subtitle;
+.footer__copyright {
     font-weight: 400;
     font-size: 18px;
-    line-height: 21.78px;
+    line-height: 22px;
+    color: #545454;
     margin: 0;
-    padding: 0;
 }
 
 @media screen and (max-width: 500px) {
-    .profile__info-subtitle {
+    .footer__copyright {
         font-size: 14px;
         line-height: 17px;
     }

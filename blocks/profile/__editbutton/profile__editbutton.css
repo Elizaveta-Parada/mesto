@@ -1,8 +1,15 @@
-.profile__info-editbutton {
+.profile__editbutton {
     grid-area: pencil;
     width: 24px;
     height: 24px;
     box-sizing: border-box;
     border: 1px solid #FFFFFF;
     background: rgba(0, 0, 0, 0);
+}
+
+@media screen and (max-width: 500px) {
+    .profile__editbutton {
+        width: 18px;
+        height: 18px;
+    }
 }

@@ -9,3 +9,11 @@
     "subtitle subtitle";
     align-items: center;
 }
+
+@media screen and (max-width: 767px) {
+    .profile__info {
+        justify-items: center;
+        gap: 10px 14px;
+    }
+    
+}

@@ -7,3 +7,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+@media screen and (max-width: 500px) {
+    .profile__addbutton {
+        width: 282px;
+    }
+}
