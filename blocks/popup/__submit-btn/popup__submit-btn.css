@@ -1,0 +1,10 @@
+.popup__submit-btn {
+    width: calc(238px + (358 - 238)*((100vw - 320px)/(1280 - 320)));
+    margin: 0 auto;
+    background-color: black;
+    color: white;
+    padding: 0;
+    height: calc(46px + (50 - 46)*((100vw - 320px)/(1280 - 320)));
+    box-sizing: border-box;
+    margin-top: 48px;
+}
