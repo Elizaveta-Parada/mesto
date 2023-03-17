@@ -1,10 +1,12 @@
 .popup__close {
-    width: 32px;
-    height: 32px;
+    width: calc(20px + (32 - 20)*((100vw - 320px)/(1280 - 320)));
+    height: calc(20px + (32 - 20)*((100vw - 320px)/(1280 - 320)));
     border: none;
     background-image: url(../../../images/Close_Icon.png);
     background-color: transparent;
+    background-size: cover;
     position: absolute;
-    top: -32px;
-    right: -32px;
+    top: calc(-16px + (-38 + 16)*((100vw - 320px)/(1280 - 320)));
+    right: calc(-16px + (-38 + 16)*((100vw - 320px)/(1280 - 320)));
 }
+
