@@ -10,3 +10,6 @@
     right: calc(-16px + (-38 + 16)*((100vw - 320px)/(1280 - 320)));
 }
 
+.popup__close:hover {
+    opacity: 0.6;
+}

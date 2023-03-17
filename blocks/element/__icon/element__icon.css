@@ -3,10 +3,11 @@
     border: none;
     min-height: 19px;
     min-width: 22px;
+    background-color: white;
 }
 
 .element__icon:hover {
-    background-color: black;
+    background-image: url(../../../images/heart-active.png);
     transition: color 1s ease 0.5s;
     opacity: 0.8;
 }
