@@ -1,4 +1,5 @@
 .profile {
+    max-width: 880px;
     width: calc(320px + (880 - 320)*((100vw - 320px)/(1280 - 320)));
     margin: auto;
     padding-top: 40px;
