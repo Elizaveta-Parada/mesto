@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 780px) {
     .profile {
         grid-template-columns: 1fr;
         grid-template-areas: 

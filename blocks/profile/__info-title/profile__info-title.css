@@ -10,7 +10,7 @@
     overflow: hidden;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 790px) {
     .profile__info-title {
         font-size: 27px;
         line-height: 33px;
