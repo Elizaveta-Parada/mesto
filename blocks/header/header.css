@@ -4,5 +4,5 @@
     height: auto;
     margin: auto;
     padding-top: calc(28px + (43 - 28)*((100vw - 320px)/(1280 - 320)));
-    border-bottom: 1px solid #545454;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }

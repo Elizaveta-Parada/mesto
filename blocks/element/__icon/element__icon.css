@@ -4,6 +4,7 @@
     min-height: 19px;
     min-width: 22px;
     background-color: white;
+    cursor: pointer;
 }
 
 .element__icon:hover {
