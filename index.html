@@ -12,19 +12,13 @@
     </header>
     <main class="content">
         <section class="profile">
-            <div class="profile__avatar">
-                <img class="profile__avatar-image" src="./images/avatar.jpg" alt="Фото">
-            </div>  
-            <article class="profile__info">
+            <img class="profile__avatar" src="./images/avatar.jpg" alt="Фото">
+            <div class="profile__info">
                 <h1 class="profile__info-title">Жак-Ив Кусто</h1>
                 <p class="profile__info-subtitle">Исследователь океана</p>
-                <button type="button" class="profile__editbutton">
-                    <img class="profile__editbutton-image" src="./images/pencil.png" alt="карандаш">
-                </button>
-            </article>
-            <button type="button" class="profile__addbutton">
-                <img class="profile__addbutton-image" src="./images/plus.svg" alt="Плюс">
-            </button>
+                <button type="button" class="profile__edit-button" aria-label="Редактировать профиль"></button>
+            </div>
+            <button type="button" class="profile__add-button" aria-label="Добавить фото"></button>
         </section>
         <section class="elements">
             <ul class="elements__lists">
@@ -32,59 +26,59 @@
                     <img class="element__image" src="./images/Karachaevsk.jpg" alt="Карачаевск">
                     <div class="element__group">
                         <h2 class="element__title">Карачаевск</h2>
-                        <button type="button" class="element__icon"></button>
+                        <button type="button" class="element__icon" aria-label="Лайк"></button>
                     </div>
                 </li>
                 <li class="element">
                     <img class="element__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
                     <div class="element__group">
                         <h2 class="element__title">Гора Эльбрус</h2>
-                        <button type="button" class="element__icon"></button>
+                        <button type="button" class="element__icon" aria-label="Лайк"></button>
                     </div>
                 </li>
                 <li class="element">
                     <img class="element__image" src="./images/Dombay.jpg" alt="Домбай">
                     <div class="element__group">
                         <h2 class="element__title">Домбай</h2>
-                        <button type="button" class="element__icon"></button>
+                        <button type="button" class="element__icon" aria-label="Лайк"></button>
                     </div>
                 </li>
                 <li class="element">
                     <img class="element__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
                     <div class="element__group">
                         <h2 class="element__title">Гора Эльбрус</h2>
-                        <button type="button" class="element__icon"></button>
+                        <button type="button" class="element__icon" aria-label="Лайк"></button>
                     </div>
                 </li>
                 <li class="element">
                     <img class="element__image" src="./images/Dombay.jpg" alt="Домбай">
                     <div class="element__group">
                         <h2 class="element__title">Домбай</h2>
-                        <button type="button" class="element__icon"></button>
+                        <button type="button" class="element__icon" aria-label="Лайк"></button>
                     </div>
                 </li>
                 <li class="element">
                     <img class="element__image" src="./images/Karachaevsk.jpg" alt="Карачаевск">
                     <div class="element__group">
                         <h2 class="element__title">Карачаево-Черкесская Республика</h2>
-                        <button type="button" class="element__icon"></button>
+                        <button type="button" class="element__icon" aria-label="Лайк"></button>
                     </div>
                 </li>
             </ul>
         </section>
     </main>
     <!--popup-->
-    <section class="popup">
+    <div class="popup">
         <div class="popup__container">
             <button type="button" class="popup__close" aria-label="Закрытие окна"></button>
-            <form class="popup__content">
+            <form class="popup__form" name="prifile-info">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <input type="text" placeholder="Имя" maxlenght="30" class="popup__subtitle popup__subtitle-name" value="Жак-Ив Кусто">
-                <input type="text" placeholder="О себе" class="popup__subtitle popup__subtitle-job" value="Исследователь океана">
+                <input type="text" placeholder="Имя" name="profile-name" class="popup__input popup__input_type_name" value="Жак-Ив Кусто">
+                <input type="text" placeholder="О себе" name="profile-job" class="popup__input popup__input_type_job" value="Исследователь океана">
                 <button type="submit" class="popup__submit-btn">Сохранить</button>
             </form>
         </div>
-    </section>
+    </div>
     <footer class="footer">
         <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
     </footer>
