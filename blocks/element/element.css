@@ -3,4 +3,6 @@
     border-radius: 10px;
     background-color: #FFFFFF;
     border: none;
+    box-sizing: border-box;
+    overflow: hidden;
 }
