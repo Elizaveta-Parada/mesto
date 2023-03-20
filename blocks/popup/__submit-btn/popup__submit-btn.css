@@ -1,5 +1,6 @@
 .popup__submit-btn {
     width: calc(238px + (358 - 238)*((100vw - 320px)/(1280 - 320)));
+    max-width: 358px;
     margin: 0 auto;
     background-color: black;
     color: white;

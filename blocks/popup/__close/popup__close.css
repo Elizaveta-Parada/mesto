@@ -1,6 +1,8 @@
 .popup__close {
     width: calc(20px + (32 - 20)*((100vw - 320px)/(1280 - 320)));
     height: calc(20px + (32 - 20)*((100vw - 320px)/(1280 - 320)));
+    max-width: 32px;
+    max-height: 32px;
     border: none;
     background-image: url(../../../images/Close-Icon.svg);
     background-color: transparent;
