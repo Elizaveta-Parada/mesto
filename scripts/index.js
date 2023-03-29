@@ -1,40 +1,62 @@
 // Выборка DOM элементов 
-const popupElement = document.querySelector(".popup");
-const popupCloseButtonElement = popupElement.querySelector(".popup__close");
-const popupOpenButtonElement = document.querySelector(".profile__edit-button");
-const nameInput = popupElement.querySelector(".popup__input_type_name");
-const jobInput = popupElement.querySelector(".popup__input_type_job");
-const addButtonElement = popupElement.querySelector(".form__submit-btn_action_add");
-const profileTitle = document.querySelector(".profile__info-title");
-const profileSubtitle = document.querySelector(".profile__info-subtitle");
-const popupForm = popupElement.querySelector(".popup__form")
-const popupOpenAddButton = document.querySelector(".profile__add-button")
-  
+const popupForm = document.querySelector('.popup__form');
+const profileTitle = document.querySelector('.profile__info-title');
+const profileSubtitle = document.querySelector('.profile__info-subtitle');
+const nameInput = document.querySelector('.popup__input_type_name');
+const jobInput = document.querySelector('.popup__input_type_job');
 
-const openPopup = function() {
-    popupElement.classList.add("popup_opened");
-    nameInput.value = profileTitle.textContent;
-    jobInput.value = profileSubtitle.textContent;
+const popupController = ({popup, btnOpen, btnClose}) => {
+  const buttonElems = document.querySelectorAll(btnOpen);
+  const popupElem = document.querySelector(popup);
+
+  const closePopup = event => {
+    const target = event.target;
+    if (
+      target === popupElem ||
+      (btnClose && target.closest(btnClose)) ||
+      event.code === 'Escape'
+      ) {
+      popupElem.classList.remove('popup_opened')
+      window.removeEventListener('keydown', closePopup);
+    }
+  }
+
+  const openPopup = () => {
+    popupElem.classList.add('popup_opened')
+    window.addEventListener('keydown', closePopup)
+  };
+
+  buttonElems.forEach(btn => {
+    btn.addEventListener('click', openPopup);
+  });
+
+  popupElem.addEventListener('click', closePopup);
 };
 
-const closePopup = function() {
-    popupElement.classList.remove("popup_opened");
-};
+popupController({
+  popup: '.popup__one',
+  btnOpen: '.profile__edit-button',
+  btnClose: '.popup__close', 
+});
 
-popupOpenButtonElement.addEventListener("click", openPopup);
-popupOpenAddButton.addEventListener("click", openPopup)
-popupCloseButtonElement.addEventListener("click", closePopup);
+popupController({
+  popup: '.popup__two',
+  btnOpen: '.profile__add-button',
+  btnClose: '.popup__close',
+});
 
+popupController({
+  popup: '.popup__three',
+  btnOpen: '.element__image',
+  btnClose: '.popup__close',
+});
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
+// Обработчик «отправки» формы
 function handleFormSubmit (evt) {
     evt.preventDefault(); 
     // Выберите элементы, куда должны быть вставлены значения полей
-    // Вставьте новые значения с помощью textContent
     profileTitle.textContent = nameInput.value;
     profileSubtitle.textContent = jobInput.value;
-    closePopup()
     
 }
 
@@ -68,16 +90,21 @@ const initialCards = [
       name: 'Байкал',
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-  ];
+];
 
-  const imageTemplate = document.querySelector("#image-template").content;
-  const list = document.querySelector(".elements__lists");
+const imageTemplate = document.querySelector('#image-template').content;
+const list = document.querySelector('.elements__lists');
+const btnDelete = imageTemplate.querySelector('.element__delete');
+// Функция добавления фото
+function creatImage(initialCards) {
+  const imageElement = imageTemplate.cloneNode(true);
+  imageElement.querySelector('.element__title').textContent = initialCards.name;
+  imageElement.querySelector('.element__image').src = initialCards.link;
+  list.append(imageElement);
+}
 
-  initialCards.forEach(renderItem)
+initialCards.forEach(creatImage);
 
-function renderItem (initialCards) {
-	const imageElement = imageTemplate.cloneNode(true);
-	imageElement.querySelector('.element__title').textContent = initialCards.name;
-    imageElement.querySelector('.element__image').src = initialCards.link;
-	list.append(imageElement);
-};
+// Функция добавления фото через popup
+
+	
