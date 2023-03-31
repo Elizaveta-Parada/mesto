@@ -1,6 +1,7 @@
 .popup__image {
     width: calc(240px + (816 - 240)*((100vw - 320px)/(1280 - 320)));
-    max-height: 540px;
+    max-width: 816px;
+    height: calc(299px + (540 - 299)*((100vw - 320px)/(1280 - 320)));
     object-fit: cover;
     display: block;
     border: none;

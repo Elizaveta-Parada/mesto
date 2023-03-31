@@ -7,8 +7,3 @@
     cursor: pointer;
 }
 
-.element__icon:hover {
-    background-image: url(../../../images/heart-active.svg);
-    transition: color 1s ease 0.5s;
-    opacity: 0.8;
-}
