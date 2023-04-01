@@ -118,18 +118,16 @@ cards.forEach((cards) => { // перебираем массив
   renderCard(cards, image); // вызываем и передаем значения функции renderCard
 });
 
-popupFormAdd.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  renderCard({name:titleInput.value, link: imageInput.value}, list);
-  closePopup(popupAdd);
-});
-
 // Popup добавления картинки
 popupOpnAdd.addEventListener('click', () => {
   openPopup(popupAdd);
 });
 
-
+popupFormAdd.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  renderCard({name:titleInput.value, link: imageInput.value}, list);
+  closePopup(popupAdd);
+});
 
 
 

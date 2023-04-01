@@ -1,5 +1,6 @@
 .popup__container-image {
     width: calc(240px + (816 - 240)*((100vw - 320px)/(1280 - 320)));
+    max-width: 816px;
     margin: auto;
     display: flex;
     flex-direction: column;
