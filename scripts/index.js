@@ -5,26 +5,21 @@ const nameInput = popupProfile.querySelector('.popup__input_type_name');
 const jobInput = popupProfile.querySelector('.popup__input_type_job');
 const profileTitle = document.querySelector('.profile__info-title');
 const profileSubtitle = document.querySelector('.profile__info-subtitle');
-const popupForm = document.querySelector('.popup__form');
+const popupForm = document.querySelector('.popup__form_type_edit');
 
 const popupAdd = document.querySelector('.popup_two');
 const imageInput = popupAdd.querySelector('.popup__input_type_image');
 const titleInput = popupAdd.querySelector('.popup__input_type_title');
 const popupOpnAdd = document.querySelector('.profile__add-button');
-const popupFormAdd = document.getElementsByClassName('popup__form_type_add');
-
+const popupFormAdd = document.querySelector('.popup__form_type_add');
+console.log(popupAdd)
 const popupClsBtnElm = document.querySelectorAll('.popup__close');
 
 const popupElmThree = document.querySelector('.popup_three');
 const popupFullImg = document.querySelector('#element__image');
 
-
-
 const list = document.querySelector('.elements__lists');
 const imageTemplate = document.querySelector('#image-template').content;
-
-
-
 
 
 // функция открытия  и закрытия popup 
@@ -55,29 +50,6 @@ popupForm.addEventListener('submit', (evt) => {
   closePopup(popupProfile);
 }); 
 
-// Popup добавления картинки
-popupOpnAdd.addEventListener('click', () => {
-  openPopup(popupAdd);
-});
-
-//popupFormAdd.addEventListener('submit', (evt) => {
-  // evt.preventDefault();
-  // renderCard({
-   // title:titleInput.value, 
-   // image:imageInput.value
-  // });
- // closePopup(popupAdd)
-// });
-
-
-
-
-  
-  
-
-  // popupElmThree.querySelector('.popup__title-image').textContent = cards.name;
-  // popupElmThree.querySelector('.popup__image').src = cards.link;
-  // popupElmThree.querySelector('.popup__image').alt = cards.name;
 
 
 
@@ -146,8 +118,16 @@ cards.forEach((cards) => { // перебираем массив
   renderCard(cards, image); // вызываем и передаем значения функции renderCard
 });
 
+popupFormAdd.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  renderCard({name:titleInput.value, link: imageInput.value}, list);
+  closePopup(popupAdd);
+});
 
-
+// Popup добавления картинки
+popupOpnAdd.addEventListener('click', () => {
+  openPopup(popupAdd);
+});
 
 
 
