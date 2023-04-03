@@ -5,6 +5,6 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-    margin-top: calc(190px + (90 - 190)*((100vw - 320px)/(1280 - 320)));
+    /* margin-top: calc(190px + (90 - 190)*((100vw - 320px)/(1280 - 320))); */
     position: relative;
 }
