@@ -27,22 +27,49 @@
     <!--popup-->
     <div class="popup popup_profile">
         <div class="popup__container">
+            <h2 class="popup__title">Редактировать профиль</h2>
             <button type="button" class="popup__close" aria-label="Закрытие окна"></button>
-            <form class="popup__form popup__form_type_edit" name="prifile-info">
-                <h2 class="popup__title">Редактировать профиль</h2>
-                <input type="text" placeholder="Имя" name="profile-name" class="popup__input popup__input_type_name" value="">
-                <input type="text" placeholder="О себе" name="profile-job" class="popup__input popup__input_type_job" value="">
-                <button type="submit" class="popup__submit-btn">Сохранить</button>
+            <form class="popup__form popup__form_type_edit" name="prifile-info" novalidate>
+                <input class="popup__input popup__input_type_name" 
+                    type="text" 
+                    placeholder="Имя" 
+                    name="profile-name" id="profile_name"  
+                    value="" 
+                    minlength="2" maxlength="40" 
+                    required>
+                <span class="popup__error" id="profile_name-error"></span>
+                <input class="popup__input popup__input_type_job"
+                    type="text" 
+                    placeholder="О себе" 
+                    name="profile-job" id="profile_job"  
+                    value="" 
+                    minlength="2" maxlength="200" 
+                    required>
+                <span class="popup__error" id="profile_job-error"></span>
+                <button type="submit" class="popup__submit-btn popup__submit-btn_visable">Сохранить</button>
             </form>
         </div>
     </div>
     <div class="popup popup_card">
         <div class="popup__container">
+            <h2 class="popup__title">Новое место</h2>
             <button type="button" class="popup__close" aria-label="Закрытие окна"></button>
-            <form class="popup__form popup__form_type_add" name="add-image">
-                <h2 class="popup__title">Новое место</h2>
-                <input type="text" placeholder="Название" name="title" class="popup__input popup__input_type_title" value="">
-                <input type="text" placeholder="Ссылка" name="image" class="popup__input popup__input_type_image" value="">
+            <form class="popup__form popup__form_type_add" name="add-image" novalidate>
+                <input class="popup__input popup__input_type_title "
+                    type="text" 
+                    placeholder="Название" 
+                    name="title" id="title"  
+                    value="" 
+                    minlength="2" maxlength="30" 
+                    required>
+                <span class="popup__error" id="title-error"></span>
+                <input class="popup__input popup__input_type_image"
+                    type="url" 
+                    placeholder="Ссылка" 
+                    name="url" id="url"  
+                    value="" 
+                    required>
+                <span class="popup__error" id="url-error"></span>
                 <button type="submit" class="popup__submit-btn">Создать</button>
             </form>
         </div>
@@ -67,6 +94,8 @@
             </div>
         </li>
     </template>
+    <!-- <script src="./scripts/validate.js" ></script> -->
+    <script src="./scripts/validatetest.js"></script>
     <script src="./scripts/index.js" ></script>
 </body>
 </html>

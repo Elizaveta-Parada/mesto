@@ -2,7 +2,6 @@
     width: calc(238px + (358 - 238)*((100vw - 320px)/(1280 - 320)));
     max-width: 358px;
     margin: 0 auto;
-    background-color: black;
     color: white;
     padding: 0;
     height: calc(46px + (50 - 46)*((100vw - 320px)/(1280 - 320)));

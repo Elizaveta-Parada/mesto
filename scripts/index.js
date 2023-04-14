@@ -1,3 +1,4 @@
+
 // Выборка DOM элементов 
 const profilePopup = document.querySelector('.popup_profile');
 const popupOpnProf = document.querySelector('.profile__edit-button');
@@ -26,16 +27,33 @@ const imageTemplate = document.querySelector('#image-template').content;
 // функция открытия  и закрытия popup 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closePopup(popup)
+    }
+  })
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closePopup(popup)
+    }
+  })
 }
 
 popupClsList.forEach( (e) => {
   const popup = e.closest('.popup')
   e.addEventListener('click', () => closePopup(popup));
 })
+
+function closePopupOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.currentTarget)
+  }
+}
+
 
 // Popup редактирование формы профиля
 popupOpnProf.addEventListener('click', () => {
@@ -127,7 +145,6 @@ function renderCard(cards, cardsContainer) {
 cards.forEach((cards) => { // перебираем массив
   renderCard(cards, cardsContainer); // вызываем и передаем значения функции renderCard
 });
-
 
 
 
