@@ -23,6 +23,8 @@ const popupImage = imagePopup.querySelector('.popup__image');
 const cardsContainer = document.querySelector('.elements__lists');
 const imageTemplate = document.querySelector('#image-template').content;
 
+const allPopups =document.querySelectorAll('.popup')
+
 
 // функция открытия  и закрытия popup 
 function openPopup(popup) {
@@ -54,6 +56,7 @@ function closePopupOverlay(evt) {
   }
 }
 
+allPopups.forEach(element => element.addEventListener('click', closePopupOverlay))
 
 // Popup редактирование формы профиля
 popupOpnProf.addEventListener('click', () => {
