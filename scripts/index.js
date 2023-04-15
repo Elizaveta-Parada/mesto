@@ -29,26 +29,20 @@ const allPopups =document.querySelectorAll('.popup')
 // функция открытия  и закрытия popup 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closePopup(popup)
-    }
-  })
+  document.addEventListener('keydown', handleEscClose)
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closePopup(popup)
-    }
-  })
+  document.removeEventListener('keydown', handleEscClose)
 }
 
-popupClsList.forEach( (e) => {
-  const popup = e.closest('.popup')
-  e.addEventListener('click', () => closePopup(popup));
-})
+function handleEscClose(evt) {
+  if (evt.key === 'Escape') {
+    const popupOpen = document.querySelector('.popup_opened')
+    closePopup(popupOpen)
+  }
+}
 
 function closePopupOverlay(evt) {
   if (evt.target === evt.currentTarget) {
@@ -56,69 +50,13 @@ function closePopupOverlay(evt) {
   }
 }
 
-allPopups.forEach(element => element.addEventListener('click', closePopupOverlay))
-
-// Popup редактирование формы профиля
-popupOpnProf.addEventListener('click', () => {
-  openPopup(profilePopup);
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileSubtitle.textContent;
-})
-
-formProfile.addEventListener('submit', (evt) => {
-  evt.preventDefault(); 
-  profileTitle.textContent = nameInput.value;
-  profileSubtitle.textContent = jobInput.value;  // Вставьте новые значения с помощью textContent
-  closePopup(profilePopup);
-}); 
-
-// Popup добавления картинки
-popupOpnAdd.addEventListener('click', () => {
-  openPopup(cardPopup);
-});
-
-formCard.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  renderCard({name:titleInput.value, link: imageInput.value}, cardsContainer);
-  closePopup(cardPopup);
-  evt.target.reset();
-});
-
-
-// Массив фото 
-const cards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 function creatImage(cards) {
   const imageElement = imageTemplate.cloneNode(true);
   const title = imageElement.querySelector('.element__title');
   const image = imageElement.querySelector('.element__image');
   title.textContent = cards.name;
   image.src = cards.link;
+  image.alt = cards.name;
 
   const btnLike = imageElement.querySelector('.element__icon');
     btnLike.addEventListener('click', () => {
@@ -149,6 +87,40 @@ cards.forEach((cards) => { // перебираем массив
   renderCard(cards, cardsContainer); // вызываем и передаем значения функции renderCard
 });
 
+// Popup редактирование формы профиля
+popupOpnProf.addEventListener('click', () => {
+  openPopup(profilePopup);
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileSubtitle.textContent;
+})
+
+formProfile.addEventListener('submit', (evt) => {
+  evt.preventDefault(); 
+  profileTitle.textContent = nameInput.value;
+  profileSubtitle.textContent = jobInput.value;  // Вставьте новые значения с помощью textContent
+  closePopup(profilePopup);
+}); 
+
+// Popup добавления картинки
+popupOpnAdd.addEventListener('click', () => {
+  const formButton = cardPopup.querySelector(enableValidationConfig.submitButtonSelector)
+  disableButton(formButton, enableValidationConfig.inactiveButtonClass, enableValidationConfig.activeButtonClass);
+  openPopup(cardPopup);
+});
+
+formCard.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  renderCard({name:titleInput.value, link: imageInput.value}, cardsContainer);
+  closePopup(cardPopup);
+  evt.target.reset();
+});
+
+popupClsList.forEach( (e) => {
+  const popup = e.closest('.popup')
+  e.addEventListener('click', () => closePopup(popup));
+})
+
+allPopups.forEach(element => element.addEventListener('click', closePopupOverlay))
 
 
 

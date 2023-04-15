@@ -1,18 +1,8 @@
-const enableValidationConfig = {
-    formList: document.forms,
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit-btn',
-    inactiveButtonClass: 'popup__submit-btn_disabled',
-    activeButtonClass: 'popup__submit-btn_visable',
-    inputErrorClass: 'popup__input_invalid',
-    errorClass: 'popup__error_visable'
-  }; 
 
-const log = console.log
 
 function enableValidation(rest) {
     const forms = Array.from(rest.formList)
-    forms.forEach((form) => {
+       forms.forEach((form) => {
         const formInputs = Array.from(form.querySelectorAll(rest.inputSelector))
         const formButton = form.querySelector(rest.submitButtonSelector)
         setEventListener(formInputs, formButton, rest.inactiveButtonClass, rest.activeButtonClass, rest.inputErrorClass, rest.errorClass)
@@ -24,11 +14,9 @@ const setEventListener = (formInputs, formButton, inactiveButtonClass, activeBut
         input.addEventListener('input', () => {
             checkInputValidity(input, inputErrorClass, errorClass)
             toggleButtonState(formInputs, formButton, inactiveButtonClass, activeButtonClass)
-
         })
     })
 }
-log(setEventListener)
 
 const checkInputValidity = (input, inputErrorClass, errorClass) => {
     const errorElement = document.querySelector(`#${input.id}-error`)
@@ -63,14 +51,14 @@ const hasInvalidInput = (formInputs) => {
 const disableButton = (formButton, inactiveButtonClass, activeButtonClass) => {
     formButton.classList.add(inactiveButtonClass)
     formButton.classList.remove(activeButtonClass)
-    formButton.setAttribute('disable', true)
+    formButton.setAttribute('disabled', true)
     
 }
 
 const enableButton = (formButton, inactiveButtonClass, activeButtonClass) => {
     formButton.classList.remove(inactiveButtonClass)
     formButton.classList.add(activeButtonClass)
-    formButton.removeAttribute('disable')
+    formButton.removeAttribute('disabled')
     
 }
 
