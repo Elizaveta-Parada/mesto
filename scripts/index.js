@@ -1,3 +1,6 @@
+import cards from "./constants.js";
+import Card from "./card.js";
+
 
 // Выборка DOM элементов 
 const profilePopup = document.querySelector('.popup_profile');
@@ -21,7 +24,7 @@ const popupTitle = imagePopup.querySelector('.popup__title-image');
 const popupImage = imagePopup.querySelector('.popup__image');
 
 const cardsContainer = document.querySelector('.elements__lists');
-const imageTemplate = document.querySelector('#image-template').content;
+const imageTemplate = '#image-template';
 
 const allPopups =document.querySelectorAll('.popup')
 
@@ -50,42 +53,59 @@ function closePopupOverlay(evt) {
   }
 }
 
-function creatImage(cards) {
-  const imageElement = imageTemplate.cloneNode(true);
-  const title = imageElement.querySelector('.element__title');
-  const image = imageElement.querySelector('.element__image');
-  title.textContent = cards.name;
-  image.src = cards.link;
-  image.alt = cards.name;
+// function creatImage(cards) {
+//   const imageElement = imageTemplate.cloneNode(true);
+//   const title = imageElement.querySelector('.element__title');
+//   const image = imageElement.querySelector('.element__image');
+//   title.textContent = cards.name;
+//   image.src = cards.link;
+//   image.alt = cards.name;
 
-  const btnLike = imageElement.querySelector('.element__icon');
-    btnLike.addEventListener('click', () => {
-    btnLike.classList.toggle('element__icon-active');
-  });
+//   const btnLike = imageElement.querySelector('.element__icon');
+//     btnLike.addEventListener('click', () => {
+//     btnLike.classList.toggle('element__icon-active');
+//   });
 
-  const btnDelete = imageElement.querySelector('.element__delete');
-    btnDelete.addEventListener('click', (evt)=>{
-    evt.target.closest('.element').remove();
-  });
+//   const btnDelete = imageElement.querySelector('.element__delete');
+//     btnDelete.addEventListener('click', (evt)=>{
+//     evt.target.closest('.element').remove();
+//   });
 
-  image.addEventListener('click', () => {
-    openPopup(imagePopup);
-    popupTitle.textContent = title.textContent;
-    popupImage.src = image.src;
-    popupImage.alt = title.textContent;
-  });
+//   image.addEventListener('click', () => {
+//     openPopup(imagePopup);
+//     popupTitle.textContent = title.textContent;
+//     popupImage.src = image.src;
+//     popupImage.alt = title.textContent;
+//   });
   
-  return imageElement;
-};
+//   return imageElement;
+// };
 
-function renderCard(cards, cardsContainer) {
-  const image = creatImage(cards);
-  cardsContainer.prepend(image);
+function renderCard(card, cardsContainer,) {
+  cardsContainer.prepend(card);
 }
 
-cards.forEach((cards) => { // перебираем массив
-  renderCard(cards, cardsContainer); // вызываем и передаем значения функции renderCard
+cards.forEach((element) => { 
+  const card = new Card(element, imageTemplate, openPopupImage)
+  renderCard(card.creatImage(), cardsContainer); // вызываем и передаем значения функции renderCard
 });
+
+formCard.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const imageNameLink = {name: titleInput.value, link: imageInput.value};
+  const card = new Card(imageNameLink, imageTemplate, openPopupImage);
+  renderCard(card.creatImage(), cardsContainer);
+  closePopup(cardPopup);
+  evt.target.reset();
+});
+
+// Popup открытие картинки
+function openPopupImage(cardDate) {
+      openPopup(imagePopup);
+      popupTitle.textContent = cardDate.name;
+      popupImage.src = cardDate.link;
+      popupImage.alt = cardDate.name;
+};
 
 // Popup редактирование формы профиля
 popupOpnProf.addEventListener('click', () => {
@@ -106,13 +126,6 @@ popupOpnAdd.addEventListener('click', () => {
   const formButton = cardPopup.querySelector(enableValidationConfig.submitButtonSelector)
   disableButton(formButton, enableValidationConfig.inactiveButtonClass, enableValidationConfig.activeButtonClass);
   openPopup(cardPopup);
-});
-
-formCard.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  renderCard({name:titleInput.value, link: imageInput.value}, cardsContainer);
-  closePopup(cardPopup);
-  evt.target.reset();
 });
 
 popupClsList.forEach( (e) => {
