@@ -1,5 +1,6 @@
 import cards from "./constants.js";
 import Card from "./card.js";
+import {FormValidator, enableValidationConfig} from "./validate.js";
 
 
 // Выборка DOM элементов 
@@ -19,7 +20,6 @@ const formCard = document.querySelector('.popup__form_type_add');
 const popupClsList = document.querySelectorAll('.popup__close');
 
 const imagePopup = document.querySelector('.popup_full-image');
-const popupFullImg = document.querySelector('#element__image');
 const popupTitle = imagePopup.querySelector('.popup__title-image');
 const popupImage = imagePopup.querySelector('.popup__image');
 
@@ -27,6 +27,8 @@ const cardsContainer = document.querySelector('.elements__lists');
 const imageTemplate = '#image-template';
 
 const allPopups =document.querySelectorAll('.popup')
+
+
 
 
 // функция открытия  и закрытия popup 
@@ -53,34 +55,6 @@ function closePopupOverlay(evt) {
   }
 }
 
-// function creatImage(cards) {
-//   const imageElement = imageTemplate.cloneNode(true);
-//   const title = imageElement.querySelector('.element__title');
-//   const image = imageElement.querySelector('.element__image');
-//   title.textContent = cards.name;
-//   image.src = cards.link;
-//   image.alt = cards.name;
-
-//   const btnLike = imageElement.querySelector('.element__icon');
-//     btnLike.addEventListener('click', () => {
-//     btnLike.classList.toggle('element__icon-active');
-//   });
-
-//   const btnDelete = imageElement.querySelector('.element__delete');
-//     btnDelete.addEventListener('click', (evt)=>{
-//     evt.target.closest('.element').remove();
-//   });
-
-//   image.addEventListener('click', () => {
-//     openPopup(imagePopup);
-//     popupTitle.textContent = title.textContent;
-//     popupImage.src = image.src;
-//     popupImage.alt = title.textContent;
-//   });
-  
-//   return imageElement;
-// };
-
 function renderCard(card, cardsContainer,) {
   cardsContainer.prepend(card);
 }
@@ -101,10 +75,10 @@ formCard.addEventListener('submit', (evt) => {
 
 // Popup открытие картинки
 function openPopupImage(cardDate) {
-      openPopup(imagePopup);
-      popupTitle.textContent = cardDate.name;
-      popupImage.src = cardDate.link;
-      popupImage.alt = cardDate.name;
+  openPopup(imagePopup);
+  popupTitle.textContent = cardDate.name;
+  popupImage.src = cardDate.link;
+  popupImage.alt = cardDate.name;
 };
 
 // Popup редактирование формы профиля
@@ -123,8 +97,6 @@ formProfile.addEventListener('submit', (evt) => {
 
 // Popup добавления картинки
 popupOpnAdd.addEventListener('click', () => {
-  const formButton = cardPopup.querySelector(enableValidationConfig.submitButtonSelector)
-  disableButton(formButton, enableValidationConfig.inactiveButtonClass, enableValidationConfig.activeButtonClass);
   openPopup(cardPopup);
 });
 
@@ -136,7 +108,9 @@ popupClsList.forEach( (e) => {
 allPopups.forEach(element => element.addEventListener('click', closePopupOverlay))
 
 
+const formValidatorProfile = new FormValidator(enableValidationConfig, formProfile);
+formValidatorProfile.enableValidation()
 
-
-
+const formValidatorImage = new FormValidator(enableValidationConfig, formCard);
+formValidatorImage.enableValidation();
 
