@@ -79,6 +79,13 @@ class FormValidator {
         this._formButton = this._form.querySelector(this._submitButtonSelector)
         this._setEventListener()
     }
+
+    resetButton() {
+        this._formButton = this._form.querySelector(this._submitButtonSelector);
+        this._disableButton();
+    }
 }
-  export {FormValidator, enableValidationConfig}
+
+
+export {FormValidator, enableValidationConfig}
   

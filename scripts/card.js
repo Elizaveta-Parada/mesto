@@ -43,6 +43,7 @@ class Card {
 
     _handleDelete = () => {
         this._cloneImage.remove();
+        this._element = null;
     }
 
     _handleOpenPopupImage = () => {

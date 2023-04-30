@@ -29,8 +29,6 @@ const imageTemplate = '#image-template';
 const allPopups =document.querySelectorAll('.popup')
 
 
-
-
 // функция открытия  и закрытия popup 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -97,6 +95,7 @@ formProfile.addEventListener('submit', (evt) => {
 
 // Popup добавления картинки
 popupOpnAdd.addEventListener('click', () => {
+  formValidatorImage.resetButton();
   openPopup(cardPopup);
 });
 
