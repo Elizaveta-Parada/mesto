@@ -1,6 +1,10 @@
-import cards from "./constants.js";
-import Card from "./card.js";
-import {FormValidator, enableValidationConfig} from "./validate.js";
+import cards from "./scripts/utils/constants.js";
+import Card from "./scripts/components/card.js";
+import {FormValidator, enableValidationConfig} from "./scripts/components/validate.js";
+import PopupWithImage from "./scripts/components/popupWithImage.js";
+import Section from "./scripts/components/section.js";
+import UserInfo from "./scripts/components/userInfo.js";
+
 
 
 // Выборка DOM элементов 
@@ -19,48 +23,31 @@ const popupOpnAdd = document.querySelector('.profile__add-button');
 const formCard = document.querySelector('.popup__form_type_add');
 const popupClsList = document.querySelectorAll('.popup__close');
 
-const imagePopup = document.querySelector('.popup_full-image');
-const popupTitle = imagePopup.querySelector('.popup__title-image');
-const popupImage = imagePopup.querySelector('.popup__image');
+// const imagePopup = document.querySelector('.popup_full-image');
+// const popupTitle = imagePopup.querySelector('.popup__title-image');
+// const popupImage = imagePopup.querySelector('.popup__image');
 
 const cardsContainer = document.querySelector('.elements__lists');
+
+
 const imageTemplate = '#image-template';
+const popupProfileSelector = '.popup_profile';
+const imagePopupSelector = '.popup_full-image';
+const cardsContainerSelector = '.elements__lists';
+
+const profileNameSelector = '.profile__info-title';
+const profileJobSelector = '.profile__info-subtitle'
+
 
 const allPopups =document.querySelectorAll('.popup')
 
 
-// функция открытия  и закрытия popup 
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', handleEscClose)
-}
+const imagePopup = new PopupWithImage(imagePopupSelector)
+imagePopup.setEventListeners()
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', handleEscClose)
-}
+const userInfo = new UserInfo(profileNameSelector, profileJobSelector)
 
-function handleEscClose(evt) {
-  if (evt.key === 'Escape') {
-    const popupOpen = document.querySelector('.popup_opened')
-    closePopup(popupOpen)
-  }
-}
 
-function closePopupOverlay(evt) {
-  if (evt.target === evt.currentTarget) {
-    closePopup(evt.currentTarget)
-  }
-}
-
-function renderCard(card, cardsContainer,) {
-  cardsContainer.prepend(card);
-}
-
-cards.forEach((element) => { 
-  const card = new Card(element, imageTemplate, openPopupImage)
-  renderCard(card.creatImage(), cardsContainer); // вызываем и передаем значения функции renderCard
-});
 
 formCard.addEventListener('submit', (evt) => {
   evt.preventDefault();
@@ -71,40 +58,39 @@ formCard.addEventListener('submit', (evt) => {
   evt.target.reset();
 });
 
-// Popup открытие картинки
-function openPopupImage(cardDate) {
-  openPopup(imagePopup);
-  popupTitle.textContent = cardDate.name;
-  popupImage.src = cardDate.link;
-  popupImage.alt = cardDate.name;
-};
 
 // Popup редактирование формы профиля
 popupOpnProf.addEventListener('click', () => {
-  openPopup(profilePopup);
+  // openPopup(profilePopup);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
+  userInfo.openPopup()
+  
 })
+
 
 formProfile.addEventListener('submit', (evt) => {
   evt.preventDefault(); 
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;  // Вставьте новые значения с помощью textContent
-  closePopup(profilePopup);
+  // closePopup(profilePopup);
 }); 
 
 // Popup добавления картинки
 popupOpnAdd.addEventListener('click', () => {
   formValidatorImage.resetButton();
-  openPopup(cardPopup);
+  // openPopup(cardPopup);
 });
 
-popupClsList.forEach( (e) => {
-  const popup = e.closest('.popup')
-  e.addEventListener('click', () => closePopup(popup));
-})
-
-allPopups.forEach(element => element.addEventListener('click', closePopupOverlay))
+const section = new Section ({
+  items: cards,
+  renderer: (element) => {
+    const card = new Card(element, imageTemplate, imagePopup.openPopup)
+    return card.creatImage()
+  }
+}, cardsContainerSelector)
+ 
+section.renderItems()
 
 
 const formValidatorProfile = new FormValidator(enableValidationConfig, formProfile);
@@ -112,4 +98,6 @@ formValidatorProfile.enableValidation()
 
 const formValidatorImage = new FormValidator(enableValidationConfig, formCard);
 formValidatorImage.enableValidation();
+
+
 

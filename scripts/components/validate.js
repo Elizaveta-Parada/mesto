@@ -84,6 +84,7 @@ class FormValidator {
         this._formButton = this._form.querySelector(this._submitButtonSelector);
         this._disableButton();
     }
+
 }
 
 
