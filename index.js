@@ -4,7 +4,7 @@ import {FormValidator, enableValidationConfig} from "./scripts/components/valida
 import PopupWithImage from "./scripts/components/popupWithImage.js";
 import Section from "./scripts/components/section.js";
 import UserInfo from "./scripts/components/userInfo.js";
-
+import PopupWithForm from "./scripts/components/popupWithForm.js";
 
 
 // Выборка DOM элементов 
@@ -61,20 +61,18 @@ formCard.addEventListener('submit', (evt) => {
 
 // Popup редактирование формы профиля
 popupOpnProf.addEventListener('click', () => {
-  // openPopup(profilePopup);
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileSubtitle.textContent;
-  userInfo.openPopup()
-  
+  popupProfile.setInputValues(userInfo.getUserInfo())
+  popupProfile.openPopup()
+ 
 })
 
 
-formProfile.addEventListener('submit', (evt) => {
-  evt.preventDefault(); 
-  profileTitle.textContent = nameInput.value;
-  profileSubtitle.textContent = jobInput.value;  // Вставьте новые значения с помощью textContent
-  // closePopup(profilePopup);
-}); 
+// formProfile.addEventListener('submit', (evt) => {
+//   evt.preventDefault(); 
+//   profileTitle.textContent = nameInput.value;
+//   profileSubtitle.textContent = jobInput.value;  // Вставьте новые значения с помощью textContent
+//   // closePopup(profilePopup);
+// }); 
 
 // Popup добавления картинки
 popupOpnAdd.addEventListener('click', () => {
@@ -92,6 +90,14 @@ const section = new Section ({
  
 section.renderItems()
 
+
+const popupProfile = new PopupWithForm(popupProfileSelector, (evt) => {
+  evt.preventDefault();
+  userInfo.setUserInfo(popupProfile.getInputValues());
+  popupProfile.closePopup()
+
+})
+popupProfile.setEventListeners()
 
 const formValidatorProfile = new FormValidator(enableValidationConfig, formProfile);
 formValidatorProfile.enableValidation()
