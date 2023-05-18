@@ -2,7 +2,7 @@
 class Card {
     constructor(cardDate, imageTemplate, openPopupImage) {
         this._cardDate = cardDate;
-        this._name = cardDate.name;
+        this._name = cardDate.title;
         this._link = cardDate.link;
         this._imageTemplate = imageTemplate;
         this._openPopupImage = openPopupImage;
