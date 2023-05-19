@@ -5,6 +5,7 @@ import PopupWithImage from "./scripts/components/popupWithImage.js";
 import Section from "./scripts/components/section.js";
 import UserInfo from "./scripts/components/userInfo.js";
 import PopupWithForm from "./scripts/components/popupWithForm.js";
+import './pages/index.css'; // добавьте импорт главного файла стилей 
 
 
 // Выборка DOM элементов 

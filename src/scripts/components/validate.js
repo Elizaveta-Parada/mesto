@@ -87,6 +87,5 @@ class FormValidator {
 
 }
 
-
 export {FormValidator, enableValidationConfig}
   
