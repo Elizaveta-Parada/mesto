@@ -1,5 +1,5 @@
 
-const enableValidationConfig = {
+const validatorConfig = {
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__submit-btn',
     inactiveButtonClass: 'popup__submit-btn_disabled',
@@ -11,13 +11,15 @@ const enableValidationConfig = {
 
 class FormValidator {
     constructor(rest, form) {
-    this._inputSelector = rest.inputSelector;
-    this._submitButtonSelector = rest.submitButtonSelector;
-    this._inactiveButtonClass = rest.inactiveButtonClass;
-    this._activeButtonClass = rest.activeButtonClass;
-    this._inputErrorClass = rest.inputErrorClass;
-    this._errorClass = rest.errorClass;
-    this._form = form;
+        this._inputSelector = rest.inputSelector;
+        this._submitButtonSelector = rest.submitButtonSelector;
+        this._inactiveButtonClass = rest.inactiveButtonClass;
+        this._activeButtonClass = rest.activeButtonClass;
+        this._inputErrorClass = rest.inputErrorClass;
+        this._errorClass = rest.errorClass;
+        this._form = form;
+        this._formButton = this._form.querySelector(this._submitButtonSelector);
+        this._formInputs = this._form.querySelectorAll(this._inputSelector);
     }
      
     _setEventListener() {
@@ -52,7 +54,7 @@ class FormValidator {
     _toggleButtonState() {
         if (this._hasInvalidInput()) {
             this._disableButton()
-          } else {this._enableButton()}
+        } else {this._enableButton()}
     
     }
 
@@ -75,17 +77,13 @@ class FormValidator {
 
 
     enableValidation() {    
-        this._formInputs = this._form.querySelectorAll(this._inputSelector)
-        this._formButton = this._form.querySelector(this._submitButtonSelector)
         this._setEventListener()
     }
 
     resetButton() {
-        this._formButton = this._form.querySelector(this._submitButtonSelector);
         this._disableButton();
     }
-
 }
 
-export {FormValidator, enableValidationConfig}
+export { FormValidator, validatorConfig }
   

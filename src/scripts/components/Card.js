@@ -1,11 +1,11 @@
 
 class Card {
-    constructor(cardDate, imageTemplate, openPopupImage) {
-        this._cardDate = cardDate;
-        this._name = cardDate.title;
-        this._link = cardDate.link;
+    constructor(cardData, imageTemplate, openPopupImage) {
+        this._cardData = cardData;
+        this._name = cardData.title;
+        this._link = cardData.link;
         this._imageTemplate = imageTemplate;
-        this._openPopupImage = openPopupImage;
+        this._handleImageClick = openPopupImage;
     }
 
     _getTemplate() {
@@ -18,7 +18,7 @@ class Card {
         return cardElement;
     }
 
-    creatImage() {
+    createImage() {
         this._cloneImage = this._getTemplate();
         this._title = this._cloneImage.querySelector('.element__title');
         this._image = this._cloneImage.querySelector('.element__image');
@@ -34,7 +34,7 @@ class Card {
     _setEventListeners() {
         this._btnLike.addEventListener('click', this._handleLike);
         this._btnDelete.addEventListener('click',  this._handleDelete);
-        this._image.addEventListener('click', this._handleOpenPopupImage);
+        this._image.addEventListener('click', this._handleImageOpen);
     }
 
     _handleLike = () => {
@@ -43,11 +43,11 @@ class Card {
 
     _handleDelete = () => {
         this._cloneImage.remove();
-        this._element = null;
+        this._cloneImage = null;
     }
 
-    _handleOpenPopupImage = () => {
-        this._openPopupImage(this._cardDate)
+    _handleImageOpen = () => {
+        this._handleImageClick(this._cardData)
     }
 
 }
