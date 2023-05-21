@@ -26,6 +26,16 @@
   }
 ];
 
+const validatorConfig = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-btn',
+  inactiveButtonClass: 'popup__submit-btn_disabled',
+  activeButtonClass: 'popup__submit-btn_visable',
+  inputErrorClass: 'popup__input_invalid',
+  errorClass: 'popup__error_visable'
+}; 
+
+
 // Выборка DOM элементов 
 const popupOpnProf = document.querySelector('.profile__edit-button');
 const formProfile = document.querySelector('.popup__form_type_edit');
@@ -55,5 +65,6 @@ export {
   popupAddImageSelector,
   imagePopupSelector,
   itemsContainerSelector,
-  configInfo
+  configInfo,
+  validatorConfig
 }

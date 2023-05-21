@@ -4,7 +4,7 @@
     margin-top: calc(39px + (49 - 39)*((100vw - 320px)/(1280 - 320)));
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(277px, 1fr));
     grid-gap: 19px 17px;
     justify-items: center;
 }
