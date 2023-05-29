@@ -73,6 +73,8 @@ export default class FormValidator {
     resetButton() {
         this._disableButton();
     }
+
+    
 }
 
 

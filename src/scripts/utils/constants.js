@@ -42,12 +42,16 @@ const formProfile = document.querySelector('.popup__form_type_edit');
 
 const popupOpnAdd = document.querySelector('.profile__add-button');
 const formCard = document.querySelector('.popup__form_type_add');
+const formAvatar = document.querySelector('.popup__form_type_avatar');
+const buttonAvatarEdit = document.querySelector('.profile__avatar-edit');
 
 const imageTemplate = '#image-template';
 const popupProfileSelector = '.popup_profile';
 const popupAddImageSelector = '.popup_card';
 const imagePopupSelector = '.popup_full-image';
 const itemsContainerSelector = '.elements__lists';
+const popupAvatarSelector = '.popup_avatar';
+const popupDeleteSelector = '.popup_delete';
 
 const configInfo = {
   profileNameSelector: '.profile__info-title',
@@ -66,5 +70,9 @@ export {
   imagePopupSelector,
   itemsContainerSelector,
   configInfo,
-  validatorConfig
+  validatorConfig,
+  popupAvatarSelector,
+  buttonAvatarEdit,
+  formAvatar,
+  popupDeleteSelector,
 }

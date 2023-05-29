@@ -11,7 +11,10 @@
     </header>
     <main class="content">
         <section class="profile">
-            <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Фото">
+            <div class="profile__avatar-area">
+                <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Фото">
+                <button type="button" class="profile__avatar-edit" aria-label="Редактировать аватар профиля"></button>
+            </div>
             <div class="profile__info">
                 <h1 class="profile__info-title">Жак-Ив Кусто</h1>
                 <p class="profile__info-subtitle">Исследователь океана</p>
@@ -23,7 +26,10 @@
             <ul class="elements__lists"></ul>
         </section>
     </main>
-    <!--popup-->
+    <footer class="footer">
+        <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
+    </footer>
+    <!-- Начало popup редактирования профиля -->
     <div class="popup popup_profile">
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
@@ -43,6 +49,7 @@
             </form>
         </div>
     </div>
+    <!-- Начало popup добавления карточки -->
     <div class="popup popup_card">
         <div class="popup__container">
             <h2 class="popup__title">Новое место</h2>
@@ -62,6 +69,7 @@
             </form>
         </div>
     </div>
+    <!-- Увеличение изображения -->
     <div class="popup popup_full-image">
         <div class="popup__container-image">
             <button type="button" class="popup__close" aria-label="Закрытие окна"></button>
@@ -69,9 +77,32 @@
                 <h2 class="popup__title-image"></h2>
         </div>
     </div>
-    <footer class="footer">
-        <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
-    </footer>
+    <!-- Начало popup удаления карточки -->
+    <div class="popup popup_delete">
+        <div class="popup__container">
+            <h2 class="popup__title">Вы уверены?</h2>
+            <button type="button" class="popup__close" aria-label="Закрытие окна"></button>
+            <form class="popup__form popup__form_type_delete" name="delete" novalidate>
+                <button type="submit" class="popup__submit-btn popup__submit-btn_visable" aria-label="Сохранить">Да</button>     
+            </form>
+        </div>
+    </div>
+    <!-- Начало popup обновления аватара -->
+    <div class="popup popup_avatar">
+        <div class="popup__container">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <button type="button" class="popup__close" aria-label="Закрытие окна"></button>
+            <form class="popup__form popup__form_type_avatar" name="avatar" novalidate>
+                <div class="popup__field">
+                    <input class="popup__input popup__input_type_avatar" type="url" placeholder="Ссылка" name="link" id="avatar"  
+                        value="" required>
+                    <span class="popup__error" id="avatar-error"></span>
+                </div>
+                <button type="submit" class="popup__submit-btn popup__submit-btn_visable">Сохранить</button>
+            </form>
+        </div>
+    </div>
+    <!-- Шаблон карточек -->
     <template id="image-template">
         <li class="element">
             <img class="element__image" src="#" alt="">

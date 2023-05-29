@@ -1,11 +1,12 @@
 
 class Card {
-    constructor(cardData, imageTemplate, openPopupImage) {
+    constructor(cardData, imageTemplate, openPopupImage, handleImageDelete) {
         this._cardData = cardData;
         this._name = cardData.title;
         this._link = cardData.link;
         this._imageTemplate = imageTemplate;
         this._handleImageClick = openPopupImage;
+        this._handleImageDelete = handleImageDelete;
     }
 
     _getTemplate() {
@@ -42,13 +43,18 @@ class Card {
     }
 
     _handleDelete = () => {
+       this._handleImageDelete(this); 
+    }
+
+    _handleImageOpen = () => {
+        this._handleImageClick(this._cardData);
+    }
+
+    removeImage() {
         this._cloneImage.remove();
         this._cloneImage = null;
     }
 
-    _handleImageOpen = () => {
-        this._handleImageClick(this._cardData)
-    }
 
 }
 
