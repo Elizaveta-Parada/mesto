@@ -2,7 +2,9 @@
 class Card {
     constructor(cardData, imageTemplate, openPopupImage, handleImageDelete) {
         this._cardData = cardData;
-        this._name = cardData.title;
+        this._userId = cardData.userId;
+        this._authorId = cardData.owner._id;
+        this._name = cardData.name;
         this._link = cardData.link;
         this._imageTemplate = imageTemplate;
         this._handleImageClick = openPopupImage;
@@ -29,6 +31,7 @@ class Card {
         this._image.src = this._link;
         this._image.alt = this._name;
         this._setEventListeners();
+        this._deleteTrashButton();
         return this._cloneImage
     }
 
@@ -48,6 +51,14 @@ class Card {
 
     _handleImageOpen = () => {
         this._handleImageClick(this._cardData);
+    }
+
+    _deleteTrashButton() {
+        if (this._userId === this._authorId) {
+            this._btnDelete.style.display = 'block' 
+        } else {
+            this._btnDelete.style.display = 'none'
+        }
     }
 
     removeImage() {

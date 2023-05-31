@@ -23,7 +23,18 @@ import Section from "./scripts/components/Section.js";
 import UserInfo from "./scripts/components/UserInfo.js";
 import PopupWithForm from "./scripts/components/PopupWithForm.js";
 import PopupDeleteImage from "./scripts/components/PopupDeleteImage.js";
+import Api from "./scripts/components/Api.js";
 import './pages/index.css'; // добавьте импорт главного файла стилей 
+
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
+  headers: {
+    authorization: '6e677985-1c05-4284-9161-72fb9652f137',
+    'Content-Type': 'application/json'
+  }
+})
+
 
 const imagePopup = new PopupWithImage(imagePopupSelector)
 const userInfo = new UserInfo(configInfo)
@@ -50,7 +61,9 @@ const section = new Section ({
 }, itemsContainerSelector)
 
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
-  userInfo.setUserInfo(data);
+  api.setUserInfo(data)
+    .then(res => console.log(res))
+  // userInfo.setUserInfo(data);
   popupProfile.closePopup()
 })
 
@@ -86,7 +99,7 @@ buttonAvatarEdit.addEventListener('click', () => {
 
 
 imagePopup.setEventListeners();
-section.renderItems();
+// section.renderItems();
 popupProfile.setEventListeners();
 popupAddImage.setEventListeners();
 popupAvatar.setEventListeners();
@@ -96,5 +109,11 @@ formValidatorImage.enableValidation();
 formValidatorAvatar.enableValidation();
 
 
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([dataUserInfo, dataCard]) => {
+    dataCard.forEach(element => element.userId = dataUserInfo._id)
+    userInfo.setUserInfo({ profileName: dataUserInfo.name, profileJob: dataUserInfo.about, profileAvatar: dataUserInfo.avatar })
+    section.renderItems(dataCard)
 
+  })
 

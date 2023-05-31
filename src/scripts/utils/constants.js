@@ -55,7 +55,8 @@ const popupDeleteSelector = '.popup_delete';
 
 const configInfo = {
   profileNameSelector: '.profile__info-title',
-  profileJobSelector: '.profile__info-subtitle'
+  profileJobSelector: '.profile__info-subtitle',
+  profileAvatarSelector: '.profile__avatar',
 }
 
 export {
