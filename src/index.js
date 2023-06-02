@@ -42,14 +42,39 @@ const formValidatorProfile = new FormValidator(validatorConfig, formProfile);
 const formValidatorImage = new FormValidator(validatorConfig, formCard);
 const formValidatorAvatar = new FormValidator(validatorConfig, formAvatar)
 
-const popupDeleteImage = new PopupDeleteImage(popupDeleteSelector, (element) => {
-  element.removeImage();
-  popupDeleteImage.closePopup();
-
-})
+const popupDeleteImage = new PopupDeleteImage(popupDeleteSelector, ({ imageObject, cardId }) => {
+  api.deleteImage(cardId)
+    .then(res => {
+      imageObject.removeImage();
+      popupDeleteImage.closePopup();
+    })
+    .catch((error) => {
+      console.log(`При удалении фото возникла ошибка, ${error}`)
+    })
+  }
+)
 
 function createCard(element) { 
-  const card = new Card(element, imageTemplate, imagePopup.openPopup, popupDeleteImage.openPopup)
+  const card = new Card(element, imageTemplate, imagePopup.openPopup, popupDeleteImage.openPopup, (likeElement, cardId) => {
+    if (likeElement.classList.contains('element__icon-active')) {
+      api.deleteLike(cardId) 
+        .then(res => {
+          card.toggleLike(res.likes)
+        })
+        .catch((error) => {
+          console.log(`При снятии лайка возникла ошибка, ${error}`)
+        })
+    } else {
+      api.putLike(cardId)
+        .then(res => {
+          card.toggleLike(res.likes)
+        })
+        .catch((error) => {
+          console.log(`При добавлении лайка возникла ошибка, ${error}`)
+        })
+    }
+
+  })
     return card.createImage()
 }
 
@@ -60,22 +85,46 @@ const section = new Section ({
   }
 }, itemsContainerSelector)
 
+// Popup редактирование формы профиля
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
   api.setUserInfo(data)
-    .then(res => console.log(res))
-  // userInfo.setUserInfo(data);
-  popupProfile.closePopup()
+    .then(res => {
+      userInfo.setUserInfo({ profileName: res.name, profileJob: res.about, profileAvatar: res.avatar })
+      popupProfile.closePopup()
+    })
+    .catch((error) => {
+      console.log(`При редактировании профиля возникла ошибка, ${error}`)
+    })
+    .finally(() => popupProfile.returnButtonText())
+  
 })
 
-const popupAddImage = new PopupWithForm(popupAddImageSelector, (element) => {
-  section.addItem(createCard(element))
-  popupAddImage.closePopup()
+const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
+  Promise.all([api.getUserInfo(), api.addNewCard(data)])
+  .then(([dataUserInfo, dataCard]) => {
+    dataCard.userId = dataUserInfo._id
+    section.addItem(createCard(dataCard))
+    popupAddImage.closePopup()
+  })
+  .catch((error) => {
+    console.log(`При загрузки фото возникла ошибка, ${error}`)
+  })
+  .finally(() => popupAddImage.returnButtonText())
 })
 
+// Popup редактирование фото профиля
 const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
-  document.querySelector('.profile__avatar').src = data.link;
-  popupAvatar.closePopup();
-})
+  api.setAvatar(data)
+    .then(res => {
+      userInfo.setUserInfo({ profileName: res.name, profileJob: res.about, profileAvatar: res.avatar })
+      popupAvatar.closePopup();
+    })
+    .catch((error) => {
+      console.log(`При загрузки фото возникла ошибка, ${error}`)
+    })
+    .finally(() => popupAvatar.returnButtonText())
+  }
+)
 
 
 
@@ -99,7 +148,6 @@ buttonAvatarEdit.addEventListener('click', () => {
 
 
 imagePopup.setEventListeners();
-// section.renderItems();
 popupProfile.setEventListeners();
 popupAddImage.setEventListeners();
 popupAvatar.setEventListeners();
@@ -114,6 +162,6 @@ Promise.all([api.getUserInfo(), api.getCards()])
     dataCard.forEach(element => element.userId = dataUserInfo._id)
     userInfo.setUserInfo({ profileName: dataUserInfo.name, profileJob: dataUserInfo.about, profileAvatar: dataUserInfo.avatar })
     section.renderItems(dataCard)
-
   })
+  .catch((error) => {console.log(`Ошибка при загрузке страницы ${error}`)})
 

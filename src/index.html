@@ -94,7 +94,7 @@
             <button type="button" class="popup__close" aria-label="Закрытие окна"></button>
             <form class="popup__form popup__form_type_avatar" name="avatar" novalidate>
                 <div class="popup__field">
-                    <input class="popup__input popup__input_type_avatar" type="url" placeholder="Ссылка" name="link" id="avatar"  
+                    <input class="popup__input popup__input_type_avatar" type="url" placeholder="Ссылка" name="avatar" id="avatar"  
                         value="" required>
                     <span class="popup__error" id="avatar-error"></span>
                 </div>
@@ -109,7 +109,10 @@
             <button type="button" class="element__delete" aria-label="Удалить"></button>
             <div class="element__group">
                 <h2 class="element__title"></h2>
-                <button type="button" class="element__icon" aria-label="Лайк"></button>
+                <div class="element__like-area">
+                    <button type="button" class="element__icon" aria-label="Лайк"></button>
+                    <p class="element__like-counter"></p>
+                </div>
             </div>
         </li>
     </template>

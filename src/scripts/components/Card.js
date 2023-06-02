@@ -1,6 +1,6 @@
 
 class Card {
-    constructor(cardData, imageTemplate, openPopupImage, handleImageDelete) {
+    constructor(cardData, imageTemplate, openPopupImage, handleImageDelete, interactivLike) {
         this._cardData = cardData;
         this._userId = cardData.userId;
         this._authorId = cardData.owner._id;
@@ -9,6 +9,13 @@ class Card {
         this._imageTemplate = imageTemplate;
         this._handleImageClick = openPopupImage;
         this._handleImageDelete = handleImageDelete;
+        this._likes = cardData.likes;
+        this._likesLength = cardData.likes.length;
+        this._cardId = cardData._id;
+        this._interactivLike = interactivLike;
+        this._cloneImage = this._getTemplate();
+        this._likesCounter = this._cloneImage.querySelector('.element__like-counter');
+        this._btnLike = this._cloneImage.querySelector('.element__icon');
     }
 
     _getTemplate() {
@@ -22,16 +29,15 @@ class Card {
     }
 
     createImage() {
-        this._cloneImage = this._getTemplate();
         this._title = this._cloneImage.querySelector('.element__title');
         this._image = this._cloneImage.querySelector('.element__image');
-        this._btnLike = this._cloneImage.querySelector('.element__icon');
         this._btnDelete = this._cloneImage.querySelector('.element__delete');
         this._title.textContent = this._name;
         this._image.src = this._link;
         this._image.alt = this._name;
         this._setEventListeners();
         this._deleteTrashButton();
+        this._checkLikes();
         return this._cloneImage
     }
 
@@ -42,11 +48,11 @@ class Card {
     }
 
     _handleLike = () => {
-        this._btnLike.classList.toggle('element__icon-active');
+        this._interactivLike(this._btnLike, this._cardId)
     }
 
     _handleDelete = () => {
-       this._handleImageDelete(this); 
+       this._handleImageDelete({imageObject: this, cardId: this._cardId}); 
     }
 
     _handleImageOpen = () => {
@@ -66,7 +72,21 @@ class Card {
         this._cloneImage = null;
     }
 
+    // Метод проверки наличий лайков
+    _checkLikes() {
+        this._likes.forEach(element => {
+            if (element._id === this._userId) {
+                this._btnLike.classList.add('element__icon-active')
+                return
+            }
+        });
+        this._likesCounter.textContent = this._likesLength
+    }
+
+    toggleLike(likes) {
+        this._btnLike.classList.toggle('element__icon-active');
+        this._likesCounter.textContent = likes.length;
+    }
 
 }
-
 export default Card

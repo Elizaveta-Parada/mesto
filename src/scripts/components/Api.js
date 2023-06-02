@@ -38,6 +38,51 @@ export default class Api {
         .then(res => { return this._processingResponse(res) })
     }
 
+    // Метод отправки данных аватара на сервер 
+    setAvatar(data) {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({avatar: data.avatar})
+        })
+        .then(res => { return this._processingResponse(res) })
+    }
+
+    // Метод добавления новой карточки
+    addNewCard(data) {
+        return fetch(`${this._baseUrl}/cards`, {
+            method: 'POST',
+            headers: this._headers,
+            body: JSON.stringify({ name: data.title, link: data.link })
+        })
+        .then(res => { return this._processingResponse(res) })
+    }
+
+    //Метод постановки и удаления лайков
+    putLike(cardId) {
+        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+            method: 'PUT',
+            headers: this._headers,
+        })
+        .then(res => { return this._processingResponse(res) })
+    }
+
+    deleteLike(cardId) {
+        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+            method: 'DELETE',
+            headers: this._headers,
+        })
+        .then(res => { return this._processingResponse(res) })
+    }
+
+    //Метод удаления фото
+    deleteImage(cardId) {
+        return fetch(`${this._baseUrl}/cards/${cardId}`, {
+            method: 'DELETE',
+            headers: this._headers,
+        })
+        .then(res => { return this._processingResponse(res) }) 
+    }
 
 
 }

@@ -2,6 +2,8 @@
     width: calc(282px + (430 - 282)*((100vw - 320px)/(1280 - 320)));
     margin: auto;
     max-width: 430px;
+    min-height: 200px;
+    padding: 0px 0px 37px;
     display: flex;
     flex-direction: column;
     background-color: white;

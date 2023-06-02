@@ -6,8 +6,8 @@
     padding: 0;
     height: calc(46px + (50 - 46)*((100vw - 320px)/(1280 - 320)));
     box-sizing: border-box;
-    margin-top: calc(45px + (46 - 45)*((100vw - 320px)/(1280 - 320)));
-    margin-bottom: calc(25px + (37 - 25)*((100vw - 320px)/(1280 - 320)));
+    /* margin-top: calc(45px + (46 - 45)*((100vw - 320px)/(1280 - 320)));
+    margin-bottom: calc(25px + (37 - 25)*((100vw - 320px)/(1280 - 320))); */
     cursor: pointer;
     border: none;
     border-radius: 2px;
