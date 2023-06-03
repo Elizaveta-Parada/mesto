@@ -18,6 +18,7 @@ export default class Api {
             headers: this._headers
         })
         .then(res => { return this._processingResponse(res) })
+        
     }
 
     // Метод отправки данных пользователя на сервер
@@ -49,13 +50,14 @@ export default class Api {
     }
 
     // Метод добавления новой карточки
-    addNewCard(data) {
+    addNewCard({name, link }) {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: this._headers,
-            body: JSON.stringify({ name: data.title, link: data.link })
+            body: JSON.stringify({ name, link })
         })
-        .then(res => { return this._processingResponse(res) })
+        .then(res => { 
+            return this._processingResponse(res) })
     }
 
     //Метод постановки и удаления лайков

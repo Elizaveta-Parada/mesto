@@ -9,8 +9,8 @@ export default class PopupWithForm extends Popup {
         this._sendButtonText = this._sendButton.textContent;
     }
 
-    closePopup() {
-        super.closePopup();
+    close() {
+        super.close();
         this._form.reset();
     }
 
@@ -18,7 +18,7 @@ export default class PopupWithForm extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit', (evt) => { 
             evt.preventDefault();
-            this._sendButton.textContent = `${ this._sendButton.textContent}...`
+            // this.renderLoading();
             this._handleSubmit(this._getInputValues());
         })
         
@@ -37,6 +37,10 @@ export default class PopupWithForm extends Popup {
             input.value = dataInfo[input.name]
         })
 
+    }
+
+    renderLoading() {
+        this._sendButton.textContent = `${ this._sendButton.textContent}...`
     }
 
     returnButtonText() {

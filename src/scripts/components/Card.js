@@ -2,8 +2,9 @@
 class Card {
     constructor(cardData, imageTemplate, openPopupImage, handleImageDelete, interactivLike) {
         this._cardData = cardData;
+        console.log(this._cardData)
         this._userId = cardData.userId;
-        this._authorId = cardData.owner._id;
+        this._ownerId = cardData.owner._id;
         this._name = cardData.name;
         this._link = cardData.link;
         this._imageTemplate = imageTemplate;
@@ -16,6 +17,7 @@ class Card {
         this._cloneImage = this._getTemplate();
         this._likesCounter = this._cloneImage.querySelector('.element__like-counter');
         this._btnLike = this._cloneImage.querySelector('.element__icon');
+        this._btnDelete = this._cloneImage.querySelector('.element__delete');
     }
 
     _getTemplate() {
@@ -60,7 +62,7 @@ class Card {
     }
 
     _deleteTrashButton() {
-        if (this._userId === this._authorId) {
+        if (this._ownerId === this._userId) {
             this._btnDelete.style.display = 'block' 
         } else {
             this._btnDelete.style.display = 'none'

@@ -14,8 +14,8 @@ export default class PopupDeleteImage extends Popup {
         })
     }
 
-    openPopup = ({ imageObject, cardId }) => {
-        super.openPopup();
+    open = ({ imageObject, cardId }) => {
+        super.open();
         this._imageObject = imageObject;
         this._cardId = cardId;
     }

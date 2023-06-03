@@ -26,7 +26,6 @@ import PopupDeleteImage from "./scripts/components/PopupDeleteImage.js";
 import Api from "./scripts/components/Api.js";
 import './pages/index.css'; // добавьте импорт главного файла стилей 
 
-
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
   headers: {
@@ -34,7 +33,6 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 })
-
 
 const imagePopup = new PopupWithImage(imagePopupSelector)
 const userInfo = new UserInfo(configInfo)
@@ -46,7 +44,7 @@ const popupDeleteImage = new PopupDeleteImage(popupDeleteSelector, ({ imageObjec
   api.deleteImage(cardId)
     .then(res => {
       imageObject.removeImage();
-      popupDeleteImage.closePopup();
+      popupDeleteImage.close();
     })
     .catch((error) => {
       console.log(`При удалении фото возникла ошибка, ${error}`)
@@ -55,7 +53,7 @@ const popupDeleteImage = new PopupDeleteImage(popupDeleteSelector, ({ imageObjec
 )
 
 function createCard(element) { 
-  const card = new Card(element, imageTemplate, imagePopup.openPopup, popupDeleteImage.openPopup, (likeElement, cardId) => {
+  const card = new Card(element, imageTemplate, imagePopup.open, popupDeleteImage.open, (likeElement, cardId) => {
     if (likeElement.classList.contains('element__icon-active')) {
       api.deleteLike(cardId) 
         .then(res => {
@@ -73,7 +71,6 @@ function createCard(element) {
           console.log(`При добавлении лайка возникла ошибка, ${error}`)
         })
     }
-
   })
     return card.createImage()
 }
@@ -81,16 +78,17 @@ function createCard(element) {
 const section = new Section ({
   items: cards,
   renderer: (element) => {
-    section.addItem(createCard(element))
+    section.appendItem(createCard(element))
   }
 }, itemsContainerSelector)
 
 // Popup редактирование формы профиля
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
+  popupProfile.renderLoading();
   api.setUserInfo(data)
     .then(res => {
       userInfo.setUserInfo({ profileName: res.name, profileJob: res.about, profileAvatar: res.avatar })
-      popupProfile.closePopup()
+      popupProfile.close()
     })
     .catch((error) => {
       console.log(`При редактировании профиля возникла ошибка, ${error}`)
@@ -100,11 +98,12 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
 })
 
 const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
-  Promise.all([api.getUserInfo(), api.addNewCard(data)])
-  .then(([dataUserInfo, dataCard]) => {
-    dataCard.userId = dataUserInfo._id
-    section.addItem(createCard(dataCard))
-    popupAddImage.closePopup()
+  popupAddImage.renderLoading(),
+  api.addNewCard({ name: data.title, link: data.link })
+  .then((dataCard) => { 
+    dataCard.userId = dataCard.owner._id
+    section.addItem(createCard(dataCard)) 
+    popupAddImage.close() 
   })
   .catch((error) => {
     console.log(`При загрузки фото возникла ошибка, ${error}`)
@@ -114,10 +113,11 @@ const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
 
 // Popup редактирование фото профиля
 const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
+  popupAvatar.renderLoading();
   api.setAvatar(data)
     .then(res => {
       userInfo.setUserInfo({ profileName: res.name, profileJob: res.about, profileAvatar: res.avatar })
-      popupAvatar.closePopup();
+      popupAvatar.close();
     })
     .catch((error) => {
       console.log(`При загрузки фото возникла ошибка, ${error}`)
@@ -126,26 +126,23 @@ const popupAvatar = new PopupWithForm(popupAvatarSelector, (data) => {
   }
 )
 
-
-
 // Popup редактирование формы профиля
 popupOpnProf.addEventListener('click', () => {
   popupProfile.setInputValues(userInfo.getUserInfo())
-  popupProfile.openPopup()
+  popupProfile.open()
  
 })
 
 // Popup добавления картинки
 popupOpnAdd.addEventListener('click', () => {
   formValidatorImage.resetButton();
-  popupAddImage.openPopup()
+  popupAddImage.open()
 });
 
 buttonAvatarEdit.addEventListener('click', () => {
-  popupAvatar.openPopup();
+  popupAvatar.open();
   formValidatorAvatar.resetButton();
 })
-
 
 imagePopup.setEventListeners();
 popupProfile.setEventListeners();
@@ -156,11 +153,12 @@ formValidatorProfile.enableValidation();
 formValidatorImage.enableValidation();
 formValidatorAvatar.enableValidation();
 
-
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([dataUserInfo, dataCard]) => {
     dataCard.forEach(element => element.userId = dataUserInfo._id)
-    userInfo.setUserInfo({ profileName: dataUserInfo.name, profileJob: dataUserInfo.about, profileAvatar: dataUserInfo.avatar })
+    userInfo.setUserInfo({ profileName: dataUserInfo.name, 
+      profileJob: dataUserInfo.about, 
+      profileAvatar: dataUserInfo.avatar, })
     section.renderItems(dataCard)
   })
   .catch((error) => {console.log(`Ошибка при загрузке страницы ${error}`)})

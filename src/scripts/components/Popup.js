@@ -5,14 +5,14 @@ export default class Popup {
         this._form = this._popup.querySelector('.popup__form');
     }
 
-    openPopup() {
+    open() {
         this._popup.classList.add('popup_opened');
-        document.addEventListener('keydown', this._handleEscClosePopup);
+        document.addEventListener('keydown', this._handleEscClose);
     }
 
-    closePopup() {
+    close() {
         this._popup.classList.remove('popup_opened');
-        document.removeEventListener('keydown', this._handleEscClosePopup);
+        document.removeEventListener('keydown', this._handleEscClose);
     }
 
     setEventListeners() {
@@ -21,18 +21,18 @@ export default class Popup {
 
     }
 
-    _handleEscClosePopup = (evt) => {
+    _handleEscClose = (evt) => {
         if (evt.key === 'Escape') {
-            this.closePopup();}
+            this.close();}
     }
 
     _handleCloseButtonClick = () => {
-        this.closePopup();
+        this.close();
     }
 
     _handleCloseOverlay =(evt) => {
         if (evt.target === evt.currentTarget) {
-            this.closePopup();}
+            this.close();}
     }
 
 }
